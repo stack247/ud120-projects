@@ -12,9 +12,8 @@
     
 import sys
 from time import time
-sys.path.append("../tools/")
+sys.path.append("C:/Semplice/Projects/Udacity/ud120-projects/tools")
 from email_preprocess import preprocess
-
 
 ### features_train and features_test are the features for the training
 ### and testing datasets, respectively
@@ -22,12 +21,27 @@ from email_preprocess import preprocess
 features_train, features_test, labels_train, labels_test = preprocess()
 
 
-
-
 #########################################################
 ### your code goes here ###
+from sklearn.naive_bayes import GaussianNB
+clf = GaussianNB()
 
+# Train
+t0 = time()
+clf.fit(features_train, labels_train)
+print "training time:", round(time()-t0, 3), "s"
 
+# Predict
+t0 = time()
+pred = clf.predict(features_test)
+print "prediction time:", round(time()-t0, 3), "s"
+
+print pred
+
+from sklearn.metrics import accuracy_score
+accuracy = accuracy_score(pred, labels_test)
+
+print accuracy
+#test_size=0.5; accuracy=0.972693139151
+#test_size=0.9; accuracy=0.952468238417
 #########################################################
-
-
